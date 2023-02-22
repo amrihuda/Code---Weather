@@ -21,8 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const TextStyle detailStyle =
-      TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+  static const TextStyle detailStyle = TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
 
   bool viewDetail = false;
   int detailIndex = 0;
@@ -54,8 +53,7 @@ class _HomePageState extends State<HomePage> {
           if (i == 0) {
             forecastNow.add(v);
           } else {
-            if (isSameHour(DateTime.parse(v['dt_txt']),
-                DateTime.parse(temp[0]['dt_txt']))) {
+            if (isSameHour(DateTime.parse(v['dt_txt']), DateTime.parse(temp[0]['dt_txt']))) {
               forecastNow.add(v);
             }
           }
@@ -94,8 +92,7 @@ class _HomePageState extends State<HomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SearchPage(),
+                                            builder: (context) => const SearchPage(),
                                           ),
                                         );
                                       },
@@ -123,34 +120,28 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(10),
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20),
+                                padding: const EdgeInsets.symmetric(vertical: 20),
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0),
+                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                           child: Image.network(
                                             "http://openweathermap.org/img/wn/${currentWeather['weather'][0]['icon']}@2x.png",
                                             width: 40,
                                           ),
                                         ),
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(toBeginningOfSentenceCase(
-                                                    currentWeather['weather'][0]
-                                                        ['main'])
+                                                    currentWeather['weather'][0]['main'])
                                                 .toString()),
                                             Text(
                                               toBeginningOfSentenceCase(
-                                                      currentWeather['weather']
-                                                          [0]['description'])
+                                                      currentWeather['weather'][0]['description'])
                                                   .toString(),
                                               style: TextStyle(
                                                 fontSize: 12,
@@ -190,8 +181,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
@@ -200,10 +190,7 @@ class _HomePageState extends State<HomePage> {
                                               style: detailStyle,
                                             ),
                                             Transform.rotate(
-                                              angle: currentWeather['wind']
-                                                      ['deg'] *
-                                                  math.pi /
-                                                  180,
+                                              angle: currentWeather['wind']['deg'] * math.pi / 180,
                                               child: const Icon(
                                                 Icons.navigation,
                                                 size: 16,
@@ -211,28 +198,23 @@ class _HomePageState extends State<HomePage> {
                                             )
                                           ],
                                         ),
-                                        Text(
-                                            "Humidity: ${currentWeather['main']['humidity']}%",
+                                        Text("Humidity: ${currentWeather['main']['humidity']}%",
                                             style: detailStyle),
-                                        const Text("UV Index: -",
-                                            style: detailStyle)
+                                        const Text("UV Index: -", style: detailStyle)
                                       ],
                                     ),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                            "Pressure: ${currentWeather['main']['pressure']}hPa",
+                                        Text("Pressure: ${currentWeather['main']['pressure']}hPa",
                                             style: detailStyle),
                                         Text(
                                             "Visibility: ${(currentWeather['visibility'] / 1000).toStringAsFixed(1)}km",
                                             style: detailStyle),
-                                        const Text("Dew point: -",
-                                            style: detailStyle),
+                                        const Text("Dew point: -", style: detailStyle),
                                       ],
                                     )
                                   ],
@@ -245,22 +227,16 @@ class _HomePageState extends State<HomePage> {
                                   itemCount: forecast['list'].length,
                                   itemBuilder: (context, i) {
                                     return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            DateFormat('HH:mm').format(
-                                                        DateTime.parse(
-                                                            forecast['list'][i]
-                                                                ['dt_txt'])) ==
+                                            DateFormat('HH:mm').format(DateTime.parse(
+                                                        forecast['list'][i]['dt_txt'])) ==
                                                     "00:00"
                                                 ? DateFormat('MMM dd').format(
-                                                    DateTime.parse(
-                                                        forecast['list'][i]
-                                                            ['dt_txt']))
+                                                    DateTime.parse(forecast['list'][i]['dt_txt']))
                                                 : DateFormat('HH:mm').format(
                                                     DateTime.parse(forecast['list'][i]['dt_txt'])),
                                             style: TextStyle(
@@ -273,8 +249,7 @@ class _HomePageState extends State<HomePage> {
                                             width: 40,
                                           ),
                                           Text(
-                                            toCelsius(forecast['list'][i]
-                                                ['main']['temp']),
+                                            toCelsius(forecast['list'][i]['main']['temp']),
                                             style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w500,
@@ -307,8 +282,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                             ]
                                 .map((widget) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
+                                      padding: const EdgeInsets.symmetric(vertical: 8),
                                       child: widget,
                                     ))
                                 .toList(),
