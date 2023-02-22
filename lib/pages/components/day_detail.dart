@@ -53,28 +53,27 @@ class _DayDetailState extends State<DayDetail> {
                             unselectedLabelColor: Colors.black,
                             labelPadding: const EdgeInsets.all(4),
                             isScrollable: true,
+                            indicator: ShapeDecoration(
+                                shape:
+                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                color: Colors.grey.withOpacity(0.2)),
                             tabs: forecastNow
                                 .map(
                                   (fc) => SizedBox(
                                     width: 25,
                                     child: Tab(
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            DateFormat('EEE').format(
-                                                DateTime.parse(fc['dt_txt'])),
+                                            DateFormat('EEE').format(DateTime.parse(fc['dt_txt'])),
                                             style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey.shade600),
+                                                fontSize: 12, color: Colors.grey.shade600),
                                           ),
                                           Text(
-                                            DateFormat('dd').format(
-                                                DateTime.parse(fc['dt_txt'])),
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black),
+                                            DateFormat('dd').format(DateTime.parse(fc['dt_txt'])),
+                                            style:
+                                                const TextStyle(fontSize: 15, color: Colors.black),
                                           )
                                         ],
                                       ),
@@ -105,16 +104,13 @@ class _DayDetailState extends State<DayDetail> {
                           child: Column(
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        toBeginningOfSentenceCase(
-                                                fc['weather'][0]['main'])
+                                        toBeginningOfSentenceCase(fc['weather'][0]['main'])
                                             .toString(),
                                         style: const TextStyle(
                                           fontSize: 14,
@@ -122,8 +118,7 @@ class _DayDetailState extends State<DayDetail> {
                                         ),
                                       ),
                                       Text(
-                                        toBeginningOfSentenceCase(
-                                                fc['weather'][0]['description'])
+                                        toBeginningOfSentenceCase(fc['weather'][0]['description'])
                                             .toString(),
                                         style: const TextStyle(fontSize: 12),
                                       ),
@@ -150,13 +145,11 @@ class _DayDetailState extends State<DayDetail> {
                                 height: 150,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text("Percipitation"),
                                         Text("-"),
@@ -164,8 +157,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text("Probability of precipitation"),
                                         Text("-"),
@@ -173,8 +165,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text("Wind"),
                                         Row(
@@ -183,9 +174,7 @@ class _DayDetailState extends State<DayDetail> {
                                               "Wind: ${fc['wind']['speed'].toStringAsFixed(1)}m/s ${direction(fc['wind']['deg'])}",
                                             ),
                                             Transform.rotate(
-                                              angle: fc['wind']['deg'] *
-                                                  math.pi /
-                                                  180,
+                                              angle: fc['wind']['deg'] * math.pi / 180,
                                               child: const Icon(
                                                 Icons.navigation,
                                                 size: 16,
@@ -197,8 +186,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text("Pressure"),
                                         Text("${fc['main']['pressure']}hPa"),
@@ -206,8 +194,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text("Humidity"),
                                         Text("${fc['main']['humidity']}%"),
@@ -215,8 +202,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text("UV Index"),
                                         Text("-"),
@@ -224,8 +210,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text("Sunrise"),
                                         Text("-"),
@@ -233,8 +218,7 @@ class _DayDetailState extends State<DayDetail> {
                                     ),
                                     const Divider(),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text("Sunset"),
                                         Text("-"),
@@ -243,8 +227,7 @@ class _DayDetailState extends State<DayDetail> {
                                   ]
                                       .map(
                                         (widget) => Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5),
+                                          padding: const EdgeInsets.symmetric(vertical: 5),
                                           child: widget,
                                         ),
                                       )
