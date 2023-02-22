@@ -4,7 +4,7 @@ import 'package:weather_app/helpers/units.dart';
 import 'package:weather_app/helpers/direction.dart';
 import 'dart:math' as math;
 
-class DayDetail extends StatefulWidget {
+class DayDetail extends StatelessWidget {
   const DayDetail({
     super.key,
     required this.forecast,
@@ -17,27 +17,12 @@ class DayDetail extends StatefulWidget {
   final VoidCallback onListPressed;
 
   @override
-  State<DayDetail> createState() => _DayDetailState();
-}
-
-class _DayDetailState extends State<DayDetail> {
-  List forecastNow = [];
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      forecastNow = widget.forecast;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         DefaultTabController(
-          length: forecastNow.length,
-          initialIndex: widget.tabIndex,
+          length: forecast.length,
+          initialIndex: tabIndex,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -57,7 +42,7 @@ class _DayDetailState extends State<DayDetail> {
                                 shape:
                                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                                 color: Colors.grey.withOpacity(0.2)),
-                            tabs: forecastNow
+                            tabs: forecast
                                 .map(
                                   (fc) => SizedBox(
                                     width: 25,
@@ -86,7 +71,7 @@ class _DayDetailState extends State<DayDetail> {
                   ),
                   IconButton(
                     onPressed: () {
-                      widget.onListPressed();
+                      onListPressed();
                     },
                     icon: const Icon(Icons.list),
                     splashRadius: 20,
@@ -97,7 +82,7 @@ class _DayDetailState extends State<DayDetail> {
               SizedBox(
                 height: 650,
                 child: TabBarView(
-                  children: forecastNow
+                  children: forecast
                       .map(
                         (fc) => Padding(
                           padding: const EdgeInsets.all(8.0),
