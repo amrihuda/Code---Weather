@@ -27,3 +27,8 @@ getCountries() async {
   final response = await dio.get("https://restcountries.com/v2/all");
   return response.data;
 }
+
+getCountryName(String code) async {
+  final response = await dio.get("https://restcountries.com/v2/alpha/${code.toLowerCase()}");
+  return response.data['name'];
+}

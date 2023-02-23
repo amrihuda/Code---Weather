@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:weather_app/helpers/dio.dart';
 import 'package:weather_app/pages/home.dart';
@@ -92,16 +90,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    getCountries().then((result) {
-      setState(() {
-        countries = result;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -168,31 +156,39 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, i) {
                         return SizedBox(
                           height: 45,
-                          child: TextButton(
-                            style: TextButton.styleFrom(foregroundColor: Colors.black),
-                            onPressed: () {
-                              changeLocation(location[i]['lat'], location[i]['lon']);
-                            },
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  "https://openweathermap.org/images/flags/${location[i]['country'].toLowerCase()}.png",
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: Text(
-                                      "${location[i]['name']}, ${countries.firstWhere((e) => e['alpha2Code'] == location[i]['country'])['name']}",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                          child: FutureBuilder(
+                              future: getCountryName(location[i]['country']),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return TextButton(
+                                    style: TextButton.styleFrom(foregroundColor: Colors.black),
+                                    onPressed: () {
+                                      changeLocation(location[i]['lat'], location[i]['lon']);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                          "https://openweathermap.org/images/flags/${location[i]['country'].toLowerCase()}.png",
+                                          width: 30,
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                                            child: Text(
+                                              "${location[i]['name']}, ${snapshot.data}",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ),
+                                        const Icon(Icons.star_outline)
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                const Icon(Icons.star_outline)
-                              ],
-                            ),
-                          ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              }),
                         );
                       },
                     ),

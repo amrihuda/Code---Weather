@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:localstorage/localstorage.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final LocalStorage storage = LocalStorage('weather');
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,10 +28,21 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: const HomePage(
-        position: {
-          "lat": -6.1753942,
-          "lon": 106.827183,
+      home: FutureBuilder(
+        future: storage.ready,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.data == true) {
+            return HomePage(
+              position: {
+                "lat": storage.getItem('position')['lat'] ?? -6.1753942,
+                "lon": storage.getItem('position')['lon'] ?? 106.827183,
+              },
+            );
+          } else {
+            return Container(
+              color: Colors.white,
+            );
+          }
         },
       ),
     );
