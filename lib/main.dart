@@ -28,8 +28,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.transparent,
       ),
       home: const HomePage(
-        lat: -6.1753942,
-        lon: 106.827183,
+        position: {
+          "lat": -6.1753942,
+          "lon": 106.827183,
+        },
       ),
     );
   }

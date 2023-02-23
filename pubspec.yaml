@@ -40,6 +40,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   geolocator: ^9.0.2
   flutter_bloc: ^8.1.2
+  localstorage: ^4.0.0+1
 
 dev_dependencies:
   flutter_test:

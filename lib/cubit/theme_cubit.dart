@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThemeCubit extends Cubit<Map> {
@@ -7,22 +6,26 @@ class ThemeCubit extends Cubit<Map> {
   static const _lightTheme = {
     "name": "light",
     "colors": [
-      Color(0xFF7AE5F5),
-      Color(0xFFC9F6FF),
+      0xFF7AE5F5,
+      0xFFC9F6FF,
     ],
-    "icon": Icon(Icons.light_mode),
+    "icon": false,
   };
 
   static const _darkTheme = {
     "name": "dark",
     "colors": [
-      Color(0xFF0010F5),
-      Color(0xFF7AE5F5),
+      0xFF0010F5,
+      0xFF7AE5F5,
     ],
-    "icon": Icon(Icons.dark_mode),
+    "icon": true,
   };
 
   void toggleTheme() {
     emit(state['name'] == "dark" ? _lightTheme : _darkTheme);
+  }
+
+  void setTheme(theme) {
+    emit(theme['name'] == "dark" ? _lightTheme : _darkTheme);
   }
 }

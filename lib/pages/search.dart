@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:weather_app/helpers/dio.dart';
 import 'package:weather_app/pages/home.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:localstorage/localstorage.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -11,6 +14,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final LocalStorage storage = LocalStorage('weather');
   // Position? _currentPosition;
 
   Future<bool> _handleLocationPermission() async {
@@ -47,16 +51,7 @@ class _SearchPageState extends State<SearchPage> {
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
-      Navigator.of(context, rootNavigator: true).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return HomePage(
-              lat: position.latitude,
-              lon: position.longitude,
-            );
-          },
-        ),
-      );
+      changeLocation(position.latitude, position.longitude);
       // setState(() => _currentPosition = position);
     }).catchError((e) {
       debugPrint(e);
@@ -74,6 +69,26 @@ class _SearchPageState extends State<SearchPage> {
         location = result;
       });
     });
+  }
+
+  void changeLocation(lat, lon) {
+    storage.setItem('position', {
+      "lat": lat,
+      "lon": lon,
+    });
+    Future.delayed(const Duration(seconds: 1));
+    Navigator.of(context, rootNavigator: true).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) {
+          return HomePage(
+            position: {
+              "lat": lat,
+              "lon": lon,
+            },
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -116,8 +131,6 @@ class _SearchPageState extends State<SearchPage> {
         ),
         body: Column(
           children: [
-            // Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-            // Text('LNG: ${_currentPosition?.longitude ?? ""}'),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -158,16 +171,7 @@ class _SearchPageState extends State<SearchPage> {
                           child: TextButton(
                             style: TextButton.styleFrom(foregroundColor: Colors.black),
                             onPressed: () {
-                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return HomePage(
-                                      lat: location[i]['lat'],
-                                      lon: location[i]['lon'],
-                                    );
-                                  },
-                                ),
-                              );
+                              changeLocation(location[i]['lat'], location[i]['lon']);
                             },
                             child: Row(
                               children: [

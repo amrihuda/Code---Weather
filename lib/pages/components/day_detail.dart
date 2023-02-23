@@ -53,7 +53,7 @@ class DayDetail extends StatelessWidget {
                                           Text(
                                             DateFormat('EEE').format(DateTime.parse(fc['dt_txt'])),
                                             style: TextStyle(
-                                                fontSize: 12, color: Colors.grey.shade600),
+                                                fontSize: 12, color: Colors.grey.shade500),
                                           ),
                                           Text(
                                             DateFormat('dd').format(DateTime.parse(fc['dt_txt'])),
