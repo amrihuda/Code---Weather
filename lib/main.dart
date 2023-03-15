@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
           if (snapshot.data == true) {
             return HomePage(
               position: {
-                "lat": storage.getItem('position')['lat'] ?? -6.1753942,
-                "lon": storage.getItem('position')['lon'] ?? 106.827183,
+                "lat": storage.getItem('position')?['lat'] ?? -6.1753942,
+                "lon": storage.getItem('position')?['lon'] ?? 106.827183,
               },
             );
           } else {

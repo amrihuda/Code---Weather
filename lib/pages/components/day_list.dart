@@ -36,7 +36,7 @@ class DayList extends StatelessWidget {
                         DateFormat('EEE MMM dd').format(DateTime.parse(forecast[i]['dt_txt']))),
                   ),
                   Text(
-                      "${(forecast[i]['main']['temp'] - 273.15).round()} / ${toCelsius(forecast[i]['main']['feels_like'])}"),
+                      "${(forecast[i]['main']['temp_min'] - 273.15).round()} / ${toCelsius(forecast[i]['main']['temp_max'])}"),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Image.network(
